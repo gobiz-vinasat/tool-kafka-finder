@@ -1,0 +1,15 @@
+module.exports = {
+    mongo: {
+        host: 'mongo',
+        port: 27017,
+        username: 'root',
+        password: '123123',
+        db: 'kafka',
+    },
+    kafka: {
+        brokers: ['kafka:9092'],
+        topics: ['m5-order', 'm6-package'],
+        groupId: 'test',
+        clientId: 'test',
+    },
+};

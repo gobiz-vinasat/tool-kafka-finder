@@ -1,0 +1,4 @@
+include:
+  - project: dev-ops/ci-templates
+    ref: master
+    file: /js/nodejs.yml
