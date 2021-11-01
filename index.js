@@ -71,7 +71,9 @@ const config = require('./config');
             }, {upsert: true}
         );
 
-        console.log({event});
+        if (config.debug) {
+            console.log({event});
+        }
     }
 
     function handleProcessError() {
