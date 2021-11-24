@@ -1,0 +1,38 @@
+name: CI
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch (Mx-123, v1.2.3)'
+        required: true
+permissions:
+  contents: read
+  packages: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get branch
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]
+          then
+            echo "::set-output name=branch::${{ github.event.inputs.branch }}"
+          else
+            echo "::set-output name=branch::${{ github.ref_name }}"
+          fi
+    outputs:
+      branch: ${{ steps.branch.outputs.branch }}
+  ci:
+    needs: prepare
+    uses: gobiz-vinasat/devops-actions/.github/workflows/node.yml@master
+    with:
+      registry: ghcr.io
+      repository: ghcr.io/${{ github.repository }}
+      branch: ${{ needs.prepare.outputs.branch }}
+    secrets:
+      docker-username: ${{ github.actor }}
+      docker-password: ${{ secrets.GITHUB_TOKEN }}
