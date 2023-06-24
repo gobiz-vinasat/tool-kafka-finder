@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "kafkajs": "^1.14.0",
-    "mongodb": "^3.6.2"
+    "mongodb": "^3.7.4"
   }
 }
